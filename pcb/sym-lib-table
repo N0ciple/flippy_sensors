@@ -1,4 +1,4 @@
 (sym_lib_table
   (version 7)
-  (lib (name "PA1010D")(type "Legacy")(uri "${KIPRJMOD}/PA1010D libs/PA1010D.lib")(options "")(descr ""))
+  (lib (name "PA1010D")(type "Legacy")(uri "${KIPRJMOD}/PA1010D_libs/PA1010D.lib")(options "")(descr ""))
 )
