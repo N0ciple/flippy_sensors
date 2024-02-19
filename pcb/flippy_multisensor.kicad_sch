@@ -1573,7 +1573,7 @@
     (property "Datasheet" "" (at 125.73 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid d254352e-3cf9-4939-95ae-99aaf290a6ba))
+    (pin "1" (uuid d254352e-3cf9-4939-95ae-99aaf290a6bb))
     (instances
       (project "flippy_multisensor"
         (path "/9c85fcb5-a8dc-446d-a442-7a4d663b1ac1"
@@ -2358,8 +2358,8 @@
     (property "Datasheet" "~" (at 135.89 78.74 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "2" (uuid c2521233-bfcd-41a0-a53c-7122c21670b3))
-    (pin "1" (uuid 99489c79-ac18-4681-a980-00495e2d0bfb))
+    (pin "2" (uuid c2521233-bfcd-41a0-a53c-7122c21670b4))
+    (pin "1" (uuid 99489c79-ac18-4681-a980-00495e2d0bfc))
     (instances
       (project "flippy_multisensor"
         (path "/9c85fcb5-a8dc-446d-a442-7a4d663b1ac1"
@@ -2384,7 +2384,7 @@
     (property "Datasheet" "~" (at 163.83 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid ae40c908-7f61-4a3b-9f05-712bc1731d90))
+    (pin "1" (uuid ae40c908-7f61-4a3b-9f05-712bc1731d91))
     (instances
       (project "flippy_multisensor"
         (path "/9c85fcb5-a8dc-446d-a442-7a4d663b1ac1"
@@ -2434,7 +2434,7 @@
     (property "Datasheet" "~" (at 163.83 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 467317ab-95a6-4bdc-ab4e-7d2ebd0a9957))
+    (pin "1" (uuid 467317ab-95a6-4bdc-ab4e-7d2ebd0a9958))
     (instances
       (project "flippy_multisensor"
         (path "/9c85fcb5-a8dc-446d-a442-7a4d663b1ac1"
