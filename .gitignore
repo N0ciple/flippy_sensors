@@ -2,7 +2,7 @@
 *-backups/
 
 # Flipper
-src/dist/*
+src/flippy_temp/dist/*
 .vscode
 .clang-format
 .editorconfig
