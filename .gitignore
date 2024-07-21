@@ -1,2 +1,10 @@
 # Kicad
 *-backups/
+
+# Flipper
+src/flippy_temp/dist/*
+.vscode
+.clang-format
+.editorconfig
+.env
+.ufbt
