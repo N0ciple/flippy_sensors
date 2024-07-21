@@ -216,7 +216,6 @@ static void draw_temperature_graph(
         canvas_set_font(canvas, FontPrimary);
         canvas_draw_str(canvas, 64 - 6 * 5, 64 - 6, "No data yet");
     }
-    
 }
 
 static void draw_info_screen(Canvas* canvas) {
@@ -228,7 +227,7 @@ static void draw_info_screen(Canvas* canvas) {
     canvas_draw_str(canvas, 0, 34, "Long press back to exit");
     canvas_draw_str(canvas, 0, 40, "github.com/n0ciple/flippy_sensors");
     canvas_set_font(canvas, FontPrimary);
-    canvas_draw_str(canvas, 10, 60 , "Press OK to continue");
+    canvas_draw_str(canvas, 10, 60, "Press OK to continue");
 }
 
 /*------------------- Main Draw Callback ---------------------------*/
@@ -241,7 +240,7 @@ static void draw_callback(Canvas* canvas, void* ctx) {
     int graph_width = 128 - left_padding * 2;
 
     canvas_clear(canvas);
-    if (context->info_screen_visible) {
+    if(context->info_screen_visible) {
         draw_info_screen(canvas);
         return;
     }
