@@ -1,7 +1,7 @@
 name: "FAP: Build Application"
 on:
   push:
-  pull_requests:
+  pull_request:
   schedule:
     - cron: "1 1 * * *"
 jobs:
