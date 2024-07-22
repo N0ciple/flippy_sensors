@@ -45,7 +45,7 @@ static void buffer_timer_callback(void* ctx) {
     furi_assert(ctx);
     flippyTempContext* context = ctx;
 
-    if(sht30_read(&context->current_measurement && !context->info_screen_visible)) {
+    if(sht30_read(&context->current_measurement) && !context->info_screen_visible) {
         circular_buffer_put(&context->temp_buffer, &context->current_measurement);
         view_port_update(context->view_port);
 
