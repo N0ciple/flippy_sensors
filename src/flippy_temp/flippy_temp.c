@@ -45,7 +45,7 @@ static void buffer_timer_callback(void* ctx) {
     furi_assert(ctx);
     flippyTempContext* context = ctx;
 
-    if(sht30_read(&context->current_measurement)) {
+    if(sht30_read(&context->current_measurement && !context->info_screen_visible)) {
         circular_buffer_put(&context->temp_buffer, &context->current_measurement);
         view_port_update(context->view_port);
 
@@ -382,7 +382,7 @@ int32_t flippy_temp_main(void* p) {
                 // Wake up the logging thread to exit
                 furi_semaphore_release(context->log_semaphore);
             }
-            if(event.type == InputTypeShort && event.key == InputKeyOk) {
+            if(event.type == InputTypeShort && event.key == InputKeyOk && context->info_screen_visible) {
                 context->info_screen_visible = !context->info_screen_visible;
                 view_port_update(context->view_port);
             }
