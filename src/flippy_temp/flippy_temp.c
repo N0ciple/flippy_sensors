@@ -18,7 +18,7 @@
 #include "custom_u8g2_fonts.h"
 #include "flippy_temp_icons.h"
 
-#define TEMP_BUFFER_SIZE (64 - 8) // 64 pixels height - 8 pixels for text
+#define TEMP_BUFFER_SIZE       (64 - 8) // 64 pixels height - 8 pixels for text
 #define BUFFER_TIMER_UPDATE_MS 1000 //15 * 60000 // 15 minutes
 #define HEADER_TIMER_UPDATE_MS 1000
 
@@ -304,7 +304,8 @@ static flippyTempContext* flippy_temp_context_alloc() {
     // Initialize storage and log file
     context->storage = furi_record_open(RECORD_STORAGE);
     context->log_file = storage_file_alloc(context->storage);
-    if(!storage_file_open(context->log_file, context->log_file_name, FSAM_WRITE, FSOM_CREATE_ALWAYS)) {
+    if(!storage_file_open(
+           context->log_file, context->log_file_name, FSAM_WRITE, FSOM_CREATE_ALWAYS)) {
         FURI_LOG_E("FILE_INIT", "Failed to open log file");
     } else {
         // Write CSV header
@@ -382,7 +383,8 @@ int32_t flippy_temp_main(void* p) {
                 // Wake up the logging thread to exit
                 furi_semaphore_release(context->log_semaphore);
             }
-            if(event.type == InputTypeShort && event.key == InputKeyOk && context->info_screen_visible) {
+            if(event.type == InputTypeShort && event.key == InputKeyOk &&
+               context->info_screen_visible) {
                 context->info_screen_visible = !context->info_screen_visible;
                 view_port_update(context->view_port);
             }
