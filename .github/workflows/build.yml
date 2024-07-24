@@ -7,7 +7,16 @@ on:
 jobs:
   ufbt-build-action:
     runs-on: ubuntu-latest
-    name: 'ufbt: Build for Dev branch'
+    strategy:
+      matrix:
+        include:
+          - name: release
+            sdk-channel: release
+          - name: Unleashed Release
+            sdk-index-url: https://up.unleashedflip.com/directory.json
+            sdk-channel: release
+    
+    name: 'ufbt: Build for ${{matrix.name}}'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,7 +24,8 @@ jobs:
         uses: flipperdevices/flipperzero-ufbt-action@v0.1
         id: build-app
         with:
-          sdk-channel: release
+          sdk-channel: ${{matrix.sdk-channel}}
+          sdk-index-url: ${{matrix.sdk-index-url}}
           app-dir: src/flippy_temp
       - name: Upload app artifacts
         uses: actions/upload-artifact@v3
