@@ -18,7 +18,7 @@
 #include "custom_u8g2_fonts.h"
 #include "flippy_temp_icons.h"
 
-#define TEMP_BUFFER_SIZE (64 - 8) // 64 pixels height - 8 pixels for text
+#define TEMP_BUFFER_SIZE       (64 - 8) // 64 pixels height - 8 pixels for text
 #define BUFFER_TIMER_UPDATE_MS 1000 //15 * 60000 // 15 minutes
 #define HEADER_TIMER_UPDATE_MS 1000
 
@@ -36,6 +36,7 @@ typedef struct {
     Storage* storage;
     FuriThread* log_thread;
     FuriSemaphore* log_semaphore;
+    char log_file_name[64]; // Buffer to store the log file name
 } flippyTempContext;
 
 /******************** Timer Callback ****************************/
@@ -44,7 +45,7 @@ static void buffer_timer_callback(void* ctx) {
     furi_assert(ctx);
     flippyTempContext* context = ctx;
 
-    if(sht30_read(&context->current_measurement)) {
+    if(sht30_read(&context->current_measurement) && !context->info_screen_visible) {
         circular_buffer_put(&context->temp_buffer, &context->current_measurement);
         view_port_update(context->view_port);
 
@@ -79,7 +80,7 @@ static int32_t log_thread_callback(void* ctx) {
         // Log the current measurement
         FURI_LOG_D("THREAD", "Logging current measurement to file");
         if(storage_file_open(
-               context->log_file, APP_DATA_PATH("data_log.csv"), FSAM_WRITE, FSOM_OPEN_APPEND)) {
+               context->log_file, context->log_file_name, FSAM_WRITE, FSOM_OPEN_APPEND)) {
             char log_entry[64];
             snprintf(
                 log_entry,
@@ -286,11 +287,25 @@ static flippyTempContext* flippy_temp_context_alloc() {
 
     sht30_init();
 
+    // Generate a unique file name with a timestamp
+    DateTime now;
+    furi_hal_rtc_get_datetime(&now);
+    snprintf(
+        context->log_file_name,
+        sizeof(context->log_file_name),
+        APP_DATA_PATH("data_log_%04d%02d%02d_%02d%02d%02d.csv"),
+        now.year,
+        now.month,
+        now.day,
+        now.hour,
+        now.minute,
+        now.second);
+
     // Initialize storage and log file
     context->storage = furi_record_open(RECORD_STORAGE);
     context->log_file = storage_file_alloc(context->storage);
     if(!storage_file_open(
-           context->log_file, APP_DATA_PATH("data_log.csv"), FSAM_WRITE, FSOM_CREATE_ALWAYS)) {
+           context->log_file, context->log_file_name, FSAM_WRITE, FSOM_CREATE_ALWAYS)) {
         FURI_LOG_E("FILE_INIT", "Failed to open log file");
     } else {
         // Write CSV header
@@ -368,7 +383,8 @@ int32_t flippy_temp_main(void* p) {
                 // Wake up the logging thread to exit
                 furi_semaphore_release(context->log_semaphore);
             }
-            if(event.type == InputTypeShort && event.key == InputKeyOk) {
+            if(event.type == InputTypeShort && event.key == InputKeyOk &&
+               context->info_screen_visible) {
                 context->info_screen_visible = !context->info_screen_visible;
                 view_port_update(context->view_port);
             }
