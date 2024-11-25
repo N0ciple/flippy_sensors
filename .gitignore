@@ -8,3 +8,6 @@ src/flippy_temp/dist/*
 .editorconfig
 .env
 .ufbt
+
+# direnv
+.envrc
