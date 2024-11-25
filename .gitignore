@@ -10,4 +10,4 @@ src/flippy_temp/dist/*
 .ufbt
 
 # direnv
-.envrc
+.direnv/
