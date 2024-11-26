@@ -17,9 +17,10 @@
             python3
             python3Packages.uv
           ];
-          shellHook = ''
-          uv tool install ufbt
-          '';
+          # shellHook = ''
+          # uv tool install ufbt
+          # '';
+          # --> run uvx ufbt instead
         };
       });
 }
